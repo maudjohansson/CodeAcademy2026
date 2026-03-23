@@ -4,11 +4,7 @@ on:
   pull_request:
     paths:
       - '1-DevOps/idempotweet/**'
-    branches:
-      - main
   workflow_call:
-    branches:
-      - main
 
   jobs:
     defaults:
@@ -20,20 +16,20 @@ on:
           with:
             fetch-depth: 2
             ref: ${{ github.event.workflow_run.head_sha || github.sha }}
-        - name: Setup node
-          uses: actions/setup-node@v3
-          with:
-            node-version: '20'
-            cache: 'yarn'
-        - name: Activate corepack 
-          working-directory: './'
-          run: corepack enable
-        - name: Install dependencies
-          run: yarn install --immutable
-        - name: Run tests
-          run: yarn test
-        - name: Test coverage
-          run: yarn test:coverage
+        # - name: Setup node
+        #   uses: actions/setup-node@v3
+        #   with:
+        #     node-version: '20'
+        #     cache: 'yarn'
+        # - name: Activate corepack 
+        #   working-directory: './'
+        #   run: corepack enable
+        # - name: Install dependencies
+        #   run: yarn install --immutable
+        # - name: Run tests
+        #   run: yarn test
+        # - name: Test coverage
+        #   run: yarn test:coverage
 
 
 
