@@ -6,30 +6,35 @@ on:
       - 1-DevOps/idempotweet/**
   workflow_call:
 
-  jobs:
-    ci:
-      runs-on: ${{ vars.RUNNER || 'self-hosted' }}
-      defaults:
-        run:
-          working-directory: 1-DevOps/idempotweet
-        steps:
-          - name: Checkout code
-            uses: actions/checkout@v4
-          - name: Setup Node.js
-            uses: actions/setup-node@v4
-            with:
-              node-version: 20
-              cache: yarn
-              cache-dependency-path: 1-DevOps/idempotweet/yarn.lock
-          - name: Activate corepack
-            working-directory: .
-            run: corepack enable
-          - name: Install dependencies
-            run: yarn install --immutable
-          - name: Run tests
-            run: yarn test
-          - name: Test coverage
-            run: yarn test:coverage
+jobs:
+  ci:
+    runs-on: ${{ vars.RUNNER || 'self-hosted' }}
+    defaults:
+      run:
+        working-directory: 1-DevOps/idempotweet
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+          cache-dependency-path: 1-DevOps/idempotweet/yarn.lock
+
+      - name: Activate corepack
+        working-directory: .
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Run tests
+        run: yarn test
+        
+      - name: Test coverage
+        run: yarn test:coverage
 
 
 
