@@ -14,7 +14,7 @@ export default function Home() {
             </h1>
           </div>
           <p className="text-slate-500 font-medium">
-            Idempotent tweets for reliable systemss
+            Idempotent tweets for reliable systems
           </p>
         </header>
         <FeedContainer />

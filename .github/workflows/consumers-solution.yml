@@ -9,9 +9,9 @@ on:
   push:
     branches: [master]
     paths:
-      - '2-EventDriven/java-consumer/**'
-      - '2-EventDriven/dotnet-consumer/**'
-      - '.github/workflows/consumers.yml'
+      #- '2-EventDriven/java-consumer/**'
+      #- '2-EventDriven/dotnet-consumer/**'
+      #- '.github/workflows/consumers.yml'
   workflow_dispatch:
 
 env:
