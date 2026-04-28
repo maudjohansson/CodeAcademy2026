@@ -1,5 +1,5 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { render, screen, waitFor, fireEvent, act } from "@testing-library/react";
+import { describe, it, expect, beforeEach, vi } from "vitest";
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { IdemForm } from "@/app/components/IdemForm";
 
@@ -14,10 +14,6 @@ function renderWithQueryClient(queryClient: QueryClient) {
 describe("IdemForm", () => {
   beforeEach(() => {
     vi.restoreAllMocks();
-  });
-
-  afterEach(() => {
-    vi.useRealTimers();
   });
 
   it("disables submit until author and content have non-whitespace text", () => {
@@ -43,8 +39,6 @@ describe("IdemForm", () => {
   });
 
   it("submits successfully, resets fields, and invalidates idems query", async () => {
-    vi.useFakeTimers();
-
     const queryClient = new QueryClient();
     const invalidateSpy = vi.spyOn(queryClient, "invalidateQueries").mockResolvedValue();
     const fetchSpy = vi.spyOn(global, "fetch").mockResolvedValue({
@@ -78,11 +72,12 @@ describe("IdemForm", () => {
     expect(authorInput.value).toBe("");
     expect(contentInput.value).toBe("");
 
-    await act(async () => {
-      vi.advanceTimersByTime(1000);
-    });
-
-    expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: ["idems"] });
+    await waitFor(
+      () => {
+        expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: ["idems"] });
+      },
+      { timeout: 2000 }
+    );
   });
 
   it("shows server error message when publish fails", async () => {

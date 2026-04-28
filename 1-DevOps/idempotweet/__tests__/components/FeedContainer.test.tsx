@@ -30,8 +30,6 @@ describe("FeedContainer", () => {
     process.env = originalEnv;
     vi.clearAllMocks();
     vi.resetModules();
-    vi.unmock("@/app/components/IdemForm");
-    vi.unmock("@/app/components/IdemsFeed");
   });
 
   it("renders form when enabled", async () => {
