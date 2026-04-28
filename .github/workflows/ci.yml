@@ -53,13 +53,13 @@ jobs:
         run: yarn test:coverage
 
 
-#      - name: SonarQube Scan
-#        uses: SonarSource/sonarqube-scan-action@v6
-#        with:
-#          projectBaseDir: 1-DevOps/idempotweet
-#        env:
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        with:
+          projectBaseDir: 1-DevOps/idempotweet
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
 
 
 
