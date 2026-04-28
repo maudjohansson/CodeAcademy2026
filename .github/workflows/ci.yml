@@ -1,4 +1,4 @@
-name: codeacademy-2026-idempotweet
+name: ca-idempotweet-ci
 
 on:
   pull_request:
