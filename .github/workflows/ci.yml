@@ -25,13 +25,23 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: yarn
-          cache-dependency-path: 1-DevOps/idempotweet/yarn.lock
+          node-version: '20'
 
-      - name: Activate corepack
+      - name: Enable Corepack
         working-directory: .
         run: corepack enable
+
+      - name: Yarn cache directory
+        id: yarn-cache
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+
+      - name: Cache yarn dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('1-DevOps/idempotweet/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
       - name: Install dependencies
         run: yarn install --immutable
