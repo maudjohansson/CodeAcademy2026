@@ -19,6 +19,8 @@ export default defineConfig({
         "src/app/providers.tsx",
         "src/app/page.tsx",
         "src/app/api/**/*.ts",
+        "src/lib/db.ts",
+        "src/lib/rabbitmq.ts",
         "src/types/**/*.ts",
       ],
       thresholds: {
