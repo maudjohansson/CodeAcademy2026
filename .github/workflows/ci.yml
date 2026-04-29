@@ -5,11 +5,6 @@ on:
     paths:
       - '1-DevOps/idempotweet/**'
       - '.github/workflows/ci.yml'
-  push:
-    branches: [main]
-    paths:
-      - '1-DevOps/idempotweet/**'
-      - '.github/workflows/ci.yml'
   workflow_call:
 
 jobs:
