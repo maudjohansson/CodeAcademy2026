@@ -10,6 +10,9 @@ on:
 jobs:
   ci:
     runs-on: ${{ vars.RUNNER || 'ubuntu-latest' }}
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
     defaults:
       run:
         working-directory: 1-DevOps/idempotweet
@@ -48,19 +51,19 @@ jobs:
         run: yarn test:coverage
 
       - name: SonarQube Scan skipped notice
-        if: ${{ secrets.SONAR_TOKEN == '' || vars.SONAR_HOST_URL == '' }}
+        if: ${{ env.SONAR_TOKEN == '' || env.SONAR_HOST_URL == '' }}
         run: |
           echo "Skipping SonarQube Scan: missing SONAR_TOKEN secret or SONAR_HOST_URL variable."
 
 
       - name: SonarQube Scan
-        if: ${{ secrets.SONAR_TOKEN != '' && vars.SONAR_HOST_URL != '' }}
+        if: ${{ env.SONAR_TOKEN != '' && env.SONAR_HOST_URL != '' }}
         uses: SonarSource/sonarqube-scan-action@v6
         with:
           projectBaseDir: 1-DevOps/idempotweet
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
 
 
 
