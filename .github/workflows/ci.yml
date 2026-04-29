@@ -47,8 +47,14 @@ jobs:
       - name: Test coverage
         run: yarn test:coverage
 
+      - name: SonarQube Scan skipped notice
+        if: ${{ secrets.SONAR_TOKEN == '' || vars.SONAR_HOST_URL == '' }}
+        run: |
+          echo "Skipping SonarQube Scan: missing SONAR_TOKEN secret or SONAR_HOST_URL variable."
+
 
       - name: SonarQube Scan
+        if: ${{ secrets.SONAR_TOKEN != '' && vars.SONAR_HOST_URL != '' }}
         uses: SonarSource/sonarqube-scan-action@v6
         with:
           projectBaseDir: 1-DevOps/idempotweet
